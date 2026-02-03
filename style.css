@@ -1,19 +1,168 @@
-:root { --p: #5e35b1; --bg: #f5f3f9; }
-body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; height: 100vh; }
-main { display: flex; width: 100%; gap: 15px; padding: 15px; box-sizing: border-box; }
-section { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow-y: auto; }
+:root {
+    --p: #5e35b1;
+    --p-light: #f0e6ff;
+    --bg: #f5f3f9;
+    --white: #ffffff;
+    --text: #333;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+main {
+    display: flex;
+    flex-direction: row; /* Ряд для ПК */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* Адаптивність для телефонів */
+@media (max-width: 992px) {
+    main {
+        flex-direction: column; /* Стовпчик для мобільних */
+        padding: 10px;
+    }
+    
+    .left, .main, .right {
+        flex: none !important;
+        width: 100%;
+        max-height: 500px; /* Обмежуємо висоту списку уроків на мобілці */
+    }
+}
+
+section {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(94, 53, 177, 0.08);
+    overflow-y: auto;
+}
+
 .left { flex: 0.8; }
 .main { flex: 1.4; }
 .right { flex: 1; display: flex; flex-direction: column; }
-.overlay { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+
+/* Оверлей вибору курсу */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #f5f3f9 0%, #e0d7f7 100%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.course-card {
+    background: white;
+    padding: 40px;
+    border: 2px solid transparent;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.course-card:hover {
+    border-color: var(--p);
+    transform: translateY(-5px);
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: var(--p-light);
+    color: var(--p);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Елементи списку уроків */
+.module h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--p);
+    margin: 20px 0 10px;
+}
+
+.lesson-item {
+    padding: 12px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.lesson-item:hover { background: var(--p-light); }
+.active-lesson { 
+    background: var(--p) !important; 
+    color: white; 
+    border-left: 3px solid #b39ddb;
+}
+
+/* Форма */
+.generate_title { font-size: 22px; color: var(--p); text-align: center; margin-bottom: 20px; }
+.q-block { margin-bottom: 15px; }
+label { font-size: 12px; font-weight: 600; color: #777; margin-bottom: 6px; display: block; }
+
+select, input {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #eee;
+    border-radius: 10px;
+    background: #fcfaff;
+    transition: 0.3s;
+}
+
+select:focus, input:focus {
+    border-color: var(--p);
+    outline: none;
+    background: white;
+}
+
+/* Результат */
+.text-copy {
+    flex: 1;
+    border: 2px dashed var(--p-light);
+    background: #faf9ff;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    min-height: 200px;
+}
+
+button {
+    width: 100%;
+    padding: 16px;
+    background: var(--p);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover { background: #4527a0; transform: scale(1.02); }
 .hidden { display: none !important; }
-.course-card { padding: 40px; border: 3px solid var(--p); border-radius: 20px; cursor: pointer; text-align: center; font-weight: bold; }
-.module h2 { font-size: 14px; color: var(--p); border-bottom: 1px solid #eee; margin-top: 15px; }
-.lesson-item { list-style: none; padding: 8px; font-size: 13px; cursor: pointer; border-radius: 5px; }
-.lesson-item:hover { background: #f0e6ff; }
-.active-lesson { background: var(--p) !important; color: white; }
-.q-block { margin-bottom: 12px; }
-label { font-size: 11px; font-weight: bold; color: #555; display: block; margin-bottom: 4px; }
-select, input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
-.text-copy { flex: 1; border: 2px dashed #d1c4e9; padding: 15px; white-space: pre-wrap; font-size: 13px; margin-bottom: 10px; }
-button { width: 100%; padding: 15px; background: var(--p); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
