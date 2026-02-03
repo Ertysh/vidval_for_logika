@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обробка Відвалів</title>
+    <title>LMS: Обробка Відвалів</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="course-selector" class="overlay">
         <div class="overlay-content">
-            <h1 class="overlay-title">Оберіть напрямок</h1>
+            <h1 class="generate_title" style="margin-bottom: 40px;">Оберіть напрямок навчання</h1>
             <div class="courses-grid">
-                <div class="course-card python" data-course="python_start.json">
-                    <div class="icon-wrapper"><span>Py S</span></div>
+                <div class="course-card" data-course="python_start.json">
+                    <div class="icon-wrapper">
+                        <span>Py</span>
+                    </div>
                     <h3>Python Start</h3>
+                    <p style="color: #64748b; font-size: 14px; font-weight: 400;">Програма для початківців</p>
                 </div>
-            </div>
+                </div>
         </div>
     </div>
+
     <main>
-        <section class="left" id="lesson-container">
-            <p style="padding: 20px;">Завантаження уроків...</p>
+        
+        <section class="left">
+            <h2 style="font-size: 16px; margin-bottom: 15px; color: #1e293b;">Програма курсу</h2>
+            <div id="lesson-container">
+                <p style="color: #94a3b8; font-style: italic;">Оберіть курс, щоб побачити уроки...</p>
+            </div>
         </section>
+
         <section class="main">
-            <h1 class="generate_title">ОБРОБКА ВІДВАЛУ</h1>
+            <h1 class="generate_title">АНАЛІЗ ПОВЕДІНКИ УЧНЯ</h1>
+            
             <div class="generate_container">
                 <form id="otval-form">
-                    <input type="text" id="student_name" placeholder="ПІБ Учня" autocomplete="off">
-                    <div class="info">
-                        <h1>Урок: <span id="current-lesson" style="color:#5e35b1">---</span></h1>
+                    <label for="student_name">ПІБ СТУДЕНТА</label>
+                    <input type="text" id="student_name" placeholder="Введіть ПІБ учня" autocomplete="off">
+                    
+                    <div class="info" style="margin: 20px 0; padding: 15px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <h4 style="margin: 0; font-size: 12px; color: #64748b;">ОБРАНИЙ УРОК:</h4>
+                        <span id="current-lesson" style="font-weight: 700; color: #6366f1; font-size: 15px;">--- не обрано ---</span>
                     </div>
-                    <div id="dynamic-questions"></div>
-                    <button id="generate_btn" type="button">Згенерувати звіт</button>
+
+                    <div id="dynamic-questions">
+                        </div>
+
+                    <button id="generate_btn" type="button">Згенерувати повний звіт</button>
                 </form>
             </div>
         </section>
+
         <section class="right">
-            <div class="text-copy" id="result-text">Готовий звіт з'явиться тут...</div>
+            <h2 style="font-size: 16px; margin-bottom: 15px; color: #1e293b;">Готовий звіт</h2>
+            
+            <div class="text-copy" id="result-text">
+📌 Після заповнення форми та натискання кнопки "Згенерувати", тут з'явиться детальний звіт із усіма маркерами поведінки...
+            </div>
+            
             <button class="copy" id="copy-btn">Скопіювати в буфер</button>
+            
+            <p style="font-size: 11px; color: #94a3b8; margin-top: 15px; text-align: center;">
+                * Копіюйте звіт для вставки в CRM або Telegram-чат
+            </p>
         </section>
+
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
+
 
