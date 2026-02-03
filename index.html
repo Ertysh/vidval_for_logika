@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обробка Відвалів | Logika</title>
+    <title>Обробка Відвалів</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="course-selector" class="overlay">
         <div class="overlay-content">
             <h1 class="overlay-title">Оберіть напрямок</h1>
@@ -16,55 +15,32 @@
                     <div class="icon-wrapper"><span>Py S</span></div>
                     <h3>Python Start</h3>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
-
     <main>
         <section class="left" id="lesson-container">
-            <div style="padding: 20px; color: #666; text-align: center;">
-                Оберіть напрямок, щоб завантажити список уроків...
-            </div>
+            <p style="padding: 20px;">Завантаження уроків...</p>
         </section>
-
         <section class="main">
-            <div class="generate">
-                <h1 class="generate_title">ОБРОБКА ВІДВАЛУ</h1>
-                
-                <div class="generate_container">
-                    <form id="otval-form">
-                        <div class="input-group">
-                            <label for="student_name" style="font-size: 12px; font-weight: bold; color: #5e35b1;">Учень:</label>
-                            <input type="text" id="student_name" placeholder="Прізвище та ім'я учня" autocomplete="off">
-                        </div>
-
-                        <div class="info">
-                            <div class="props">
-                                <h1>Урок: <span id="current-lesson" style="color: #5e35b1;">---</span></h1>
-                            </div>
-                        </div>
-
-                        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
-
-                        <div id="questions-wrapper">
-                            <p style="color: #999; font-size: 13px;">Завантаження питань...</p>
-                        </div>
-
-                        <button id="generate_btn" type="button">Згенерувати звіт</button>
-                    </form>
-                </div>
+            <h1 class="generate_title">ОБРОБКА ВІДВАЛУ</h1>
+            <div class="generate_container">
+                <form id="otval-form">
+                    <input type="text" id="student_name" placeholder="ПІБ Учня" autocomplete="off">
+                    <div class="info">
+                        <h1>Урок: <span id="current-lesson" style="color:#5e35b1">---</span></h1>
+                    </div>
+                    <div id="dynamic-questions"></div>
+                    <button id="generate_btn" type="button">Згенерувати звіт</button>
+                </form>
             </div>
         </section>
-
         <section class="right">
-            <h2 style="font-size: 16px; color: #311b92; margin-bottom: 10px;">Готовий результат:</h2>
-            <div class="text-copy" id="result-text">
-                Ваш звіт з'явиться тут після натискання кнопки «Згенерувати»...
-            </div>
+            <div class="text-copy" id="result-text">Готовий звіт з'явиться тут...</div>
             <button class="copy" id="copy-btn">Скопіювати в буфер</button>
         </section>
     </main>
-
     <script src="script.js"></script>
 </body>
 </html>
+
