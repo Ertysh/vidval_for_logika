@@ -1,0 +1,77 @@
+[
+  {
+    "moduleTitle": "1. М1 Знайомство з Python",
+    "lessons": [
+      { "lessonTheme": "М1У1 Введення в мову Python" },
+      { "lessonTheme": "М1У2 Форматовані рядки та перетворення типів" },
+      { "lessonTheme": "М1У3 Робота з рядками" },
+      { "lessonTheme": "М1У4 Проєкт та бліц-презентація" }
+    ]
+  },
+  {
+    "moduleTitle": "2. М2 Керуючі конструкції",
+    "lessons": [
+      { "lessonTheme": "М2У1 Логічний тип даних. Умовний оператор." },
+      { "lessonTheme": "М2У2 Вкладений умовний оператор" },
+      { "lessonTheme": "М2У3 Цикл for. Оператор in та функція range()" },
+      { "lessonTheme": "М2У4 Команда break і continue. Цикл while." },
+      { "lessonTheme": "М2У5 Підсумок. Цикли і умови" }
+    ]
+  },
+  {
+    "moduleTitle": "3. М3 Функції та модулі",
+    "lessons": [
+      { "lessonTheme": "М3У1 Створення функцій, оператор return" },
+      { "lessonTheme": "М3У2 Аргументи функцій. Локальні і глобальні змінні" },
+      { "lessonTheme": "М3У3 Підготовка до ВУ. Модулі random і time" },
+      { "lessonTheme": "М3У4 Відкритий урок. Презентація проєкту" }
+    ]
+  },
+  {
+    "moduleTitle": "4. М4 Модуль Turtle (черепашка)",
+    "lessons": [
+      { "lessonTheme": "М4У1 Знайомство з Turtle." },
+      { "lessonTheme": "М4У2 Черепашка малюємо елементи картини." },
+      { "lessonTheme": "М4У3 Черепашки - Списки." },
+      { "lessonTheme": "М4У4 Підготовка до ВУ_1. Хрестики-Нулики" },
+      { "lessonTheme": "М4У5 Підготовка до ВУ_2 Guess the word" },
+      { "lessonTheme": "М4У6 Підготовка до Відкритого Уроку" },
+      { "lessonTheme": "М4У7 Відкритий урок. Презентація проєкту" }
+    ]
+  },
+  {
+    "moduleTitle": "5. M5 Об'єктно-орієнтоване програмування",
+    "lessons": [
+      { "lessonTheme": "М5У1 ООП. Проєкт “Перегони”" },
+      { "lessonTheme": "М5У2 ООП. Події" },
+      { "lessonTheme": "М5У3 Гра Впіймай яблуко" },
+      { "lessonTheme": "М5У4 Графічний редактор Малювалка" },
+      { "lessonTheme": "М5У5 Класи, конструктор" },
+      { "lessonTheme": "М5У6 Практикум Створення класів" },
+      { "lessonTheme": "М5У7 Спадкування" },
+      { "lessonTheme": "М5У8 Візуальний квест на основі ООП" },
+      { "lessonTheme": "М5У9 Підготовка до ВУ" },
+      { "lessonTheme": "М5У10 Відкритий урок" }
+    ]
+  },
+  {
+    "moduleTitle": "6. М6 Створення ігор на Pygame",
+    "lessons": [
+      { "lessonTheme": "М6У1 Знайомство з Pygame" },
+      { "lessonTheme": "М6У2 Розробляємо меню у грі" },
+      { "lessonTheme": "М6У3 Chrome Dinosaur, ч.1" },
+      { "lessonTheme": "М6У4 Chrome Dinosaur, ч.2" },
+      { "lessonTheme": "М6У5 Arkanoid, ч.1" },
+      { "lessonTheme": "М6У6 Arkanoid, ч.2" }
+    ]
+  },
+  {
+    "moduleTitle": "7. M7 Підсумковий проєктний модуль",
+    "lessons": [
+      { "lessonTheme": "М7У1 Створення проєкту" },
+      { "lessonTheme": "М7У2 Створення гри, ч.2" },
+      { "lessonTheme": "М7У3 Тестування гри" },
+      { "lessonTheme": "М7У4 Підсумковий відкритий урок" }
+    ]
+  }
+]

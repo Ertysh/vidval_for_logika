@@ -1,0 +1,19 @@
+:root { --p: #5e35b1; --bg: #f5f3f9; }
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; height: 100vh; }
+main { display: flex; width: 100%; gap: 15px; padding: 15px; box-sizing: border-box; }
+section { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow-y: auto; }
+.left { flex: 0.8; }
+.main { flex: 1.4; }
+.right { flex: 1; display: flex; flex-direction: column; }
+.overlay { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.hidden { display: none !important; }
+.course-card { padding: 40px; border: 3px solid var(--p); border-radius: 20px; cursor: pointer; text-align: center; font-weight: bold; }
+.module h2 { font-size: 14px; color: var(--p); border-bottom: 1px solid #eee; margin-top: 15px; }
+.lesson-item { list-style: none; padding: 8px; font-size: 13px; cursor: pointer; border-radius: 5px; }
+.lesson-item:hover { background: #f0e6ff; }
+.active-lesson { background: var(--p) !important; color: white; }
+.q-block { margin-bottom: 12px; }
+label { font-size: 11px; font-weight: bold; color: #555; display: block; margin-bottom: 4px; }
+select, input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
+.text-copy { flex: 1; border: 2px dashed #d1c4e9; padding: 15px; white-space: pre-wrap; font-size: 13px; margin-bottom: 10px; }
+button { width: 100%; padding: 15px; background: var(--p); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
