@@ -1,0 +1,1 @@
+# vidval_for_logika
