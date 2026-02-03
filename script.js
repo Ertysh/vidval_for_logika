@@ -1,4 +1,3 @@
-// 1. Повний список з 10 питань для обробки відвалу
 const churnQuestions = [
     { title: "0. ОЧІКУВАНО/НЕОЧІКУВАНО", options: ["Очікувано", "Неочікувано (раптово)"] },
     { title: "1. Коментарі по студенту", options: ["Здібний, але втратив мотивацію", "Технічні проблеми/Пропуски", "Переоцінив свій час", "Зник зі зв'язку"] },
@@ -12,90 +11,93 @@ const churnQuestions = [
     { title: "9. Подальші дії", options: ["Архівувати профіль", "Зв'язатися через місяць", "Запропонувати інший курс"] }
 ];
 
-// 2. Функція, яка малює питання на екрані
-function initQuestions() {
-    const qWrapper = document.getElementById('questions-wrapper');
-    if (!qWrapper) return;
-    
-    qWrapper.innerHTML = ''; // Очищуємо перед малюванням
-    
+// Чекаємо повного завантаження сторінки
+window.addEventListener('load', () => {
+    const qArea = document.getElementById('dynamic-questions');
+    if (!qArea) return;
+
+    // 1. Генеруємо питання
+    qArea.innerHTML = ''; // Очищуємо перед рендером
     churnQuestions.forEach((q) => {
         const div = document.createElement('div');
-        div.style.marginBottom = "12px";
+        div.className = 'q-block';
         div.innerHTML = `
-            <label style="display:block; font-size:11px; font-weight:bold; color:#666; margin-bottom:4px;">${q.title}</label>
-            <select class="otval-input" data-q="${q.title}" style="width:100%; padding:8px; border-radius:8px; border:1px solid #ddd;">
+            <label>${q.title}</label>
+            <select class="q-select" data-title="${q.title}">
                 ${q.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
                 <option value="custom">-- Свій варіант --</option>
             </select>
-            <input type="text" class="custom-input" style="width:100%; margin-top:5px; padding:8px; border-radius:8px; border:1px solid #ddd; display:none;" placeholder="Ваш варіант...">
+            <input type="text" class="q-custom hidden" placeholder="Ваша відповідь...">
         `;
-        qWrapper.appendChild(div);
+        qArea.appendChild(div);
     });
-}
 
-// Запускаємо малювання питань одразу
-initQuestions();
+    // 2. Обробка "Свого варіанту"
+    qArea.addEventListener('change', (e) => {
+        if (e.target.classList.contains('q-select')) {
+            const customInput = e.target.nextElementSibling;
+            if (customInput && customInput.classList.contains('q-custom')) {
+                customInput.classList.toggle('hidden', e.target.value !== 'custom');
+            }
+        }
+    });
+});
 
-// 3. Завантаження всіх 7 модулів з JSON
-document.querySelector('.course-card').addEventListener('click', async () => {
+// 3. Логіка вибору курсу
+document.querySelector('.course-card')?.addEventListener('click', async () => {
     try {
         const res = await fetch('python_start.json');
-        if (!res.ok) throw new Error("Файл JSON не знайдено");
-        
         const data = await res.json();
-        const container = document.getElementById('lesson-container');
-        container.innerHTML = '';
+        const list = document.getElementById('lesson-container');
+        if (!list) return;
 
+        list.innerHTML = '';
         data.forEach(mod => {
-            let html = `<div class="module"><h2 style="font-size:14px; color:#5e35b1;">${mod.moduleTitle}</h2><ul style="padding:0; list-style:none;">`;
+            let html = `<div class="module"><h2>${mod.moduleTitle}</h2><ul>`;
             mod.lessons.forEach(l => {
-                html += `<li class="lesson-item" style="padding:8px; cursor:pointer; font-size:13px; border-bottom:1px solid #f0f0f0;">${l.lessonTheme}</li>`;
+                html += `<li class="lesson-item">${l.lessonTheme}</li>`;
             });
-            container.innerHTML += html + '</ul></div>';
+            list.innerHTML += html + `</ul></div>`;
         });
 
-        // Клік на урок
         document.querySelectorAll('.lesson-item').forEach(li => {
             li.addEventListener('click', () => {
                 document.getElementById('current-lesson').innerText = li.innerText;
-                document.querySelectorAll('.lesson-item').forEach(i => i.style.background = "none");
-                li.style.background = "#f0e6ff";
+                document.querySelectorAll('.lesson-item').forEach(i => i.classList.remove('active-lesson'));
+                li.classList.add('active-lesson');
             });
         });
-
         document.getElementById('course-selector').classList.add('hidden');
-    } catch (e) {
-        alert("Помилка завантаження уроків: " + e.message);
+    } catch (err) {
+        alert("Помилка завантаження JSON. Перевір, чи файл python_start.json лежить поруч.");
     }
 });
 
-// 4. Обробка "Свого варіанту"
-document.addEventListener('change', (e) => {
-    if (e.target.classList.contains('otval-input')) {
-        const customField = e.target.nextElementSibling;
-        customField.style.display = (e.target.value === 'custom') ? 'block' : 'none';
-    }
-});
-
-// 5. Генерація звіту
-document.getElementById('generate_btn').addEventListener('click', () => {
+// 4. Генерація звіту
+document.getElementById('generate_btn')?.addEventListener('click', () => {
     const name = document.getElementById('student_name').value || "Учень";
     const lesson = document.getElementById('current-lesson').innerText;
-    let report = `🛑 ОБРОБКА ВІДВАЛУ\n👤 Учень: ${name}\n📖 Урок: ${lesson}\n---------------------------\n\n`;
+    let report = `🛑 ОБРОБКА ВІДВАЛУ\n👤 Учень: ${name}\n📖 Зупинився на: ${lesson}\n\n`;
 
-    document.querySelectorAll('.otval-input').forEach(select => {
+    document.querySelectorAll('.q-select').forEach(select => {
+        const title = select.dataset.title;
         let val = select.value;
-        if (val === 'custom') val = select.nextElementSibling.value || "Не вказано";
-        report += `**${select.dataset.q}**\n${val}\n\n`;
+        if (val === 'custom') {
+            val = select.nextElementSibling.value || "---";
+        }
+        report += `**${title}**\n${val}\n\n`;
     });
 
-    document.getElementById('result-text').innerText = report;
+    const resultArea = document.getElementById('result-text');
+    if (resultArea) resultArea.innerText = report;
 });
 
-// 6. Копіювання
-document.getElementById('copy-btn').addEventListener('click', () => {
-    navigator.clipboard.writeText(document.getElementById('result-text').innerText);
-    alert("Скопійовано!");
+// 5. Копіювання
+document.getElementById('copy-btn')?.addEventListener('click', () => {
+    const text = document.getElementById('result-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Звіт скопійовано!");
+    });
 });
+
 
