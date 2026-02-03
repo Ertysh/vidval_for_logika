@@ -1,88 +1,245 @@
+/* 1. Глобальні змінні та налаштування */
 :root {
     --primary: #6366f1;
     --primary-dark: #4f46e5;
     --accent: #ec4899;
-    --bg-main: #f8fafc;
-    --card-bg: rgba(255, 255, 255, 0.9);
+    --bg-body: #f1f5f9;
+    --card-bg: #ffffff;
     --text-main: #1e293b;
     --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    transition: all 0.2s ease;
 }
 
 body {
-    background: radial-gradient(circle at top right, #eef2ff, #f8fafc);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-body);
+    background-image: radial-gradient(at top right, #e0e7ff 0%, #f1f5f9 50%);
     color: var(--text-main);
-    font-family: 'Inter', system-ui, sans-serif;
-    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
+/* 2. Основна сітка (Layout) */
 main {
     display: grid;
-    grid-template-columns: 300px 1fr 350px; /* Чітка структура на ПК */
+    grid-template-columns: 320px 1.5fr 1fr; /* Три колонки для ПК */
     gap: 20px;
     padding: 20px;
     height: 100vh;
+    max-width: 1800px;
+    margin: 0 auto;
 }
 
-@media (max-width: 1100px) {
-    main { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
-    .left, .right { height: 400px; }
+/* Адаптивність для планшетів та телефонів */
+@media (max-width: 1200px) {
+    main {
+        grid-template-columns: 1fr; /* Все в один стовпчик */
+        height: auto;
+        overflow-y: visible;
+    }
+    
+    section {
+        max-height: 600px; /* Обмежуємо висоту секцій, щоб не скролити вічність */
+    }
 }
 
+/* 3. Загальний стиль секцій */
 section {
     background: var(--card-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 24px;
-    padding: 25px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-.premium-card {
-    background: white;
+/* 4. Ліва колонка (Уроки) */
+.module h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary);
+    margin: 20px 0 10px;
+}
+
+.lesson-item {
+    list-style: none;
+    padding: 12px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
+}
+
+.lesson-item:hover {
+    background: #f8fafc;
+    border-color: var(--border-color);
+}
+
+.active-lesson {
+    background: var(--primary) !important;
+    color: white;
+    font-weight: 600;
+}
+
+/* 5. Центральна колонка (Форма та Питання) */
+.generate_title {
+    font-size: 24px;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+}
+
+/* Окремі чіткі картки питань */
+.q-block {
+    background: #fcfaff;
+    border: 1px solid var(--border-color);
+    border-left: 6px solid var(--primary);
     border-radius: 16px;
     padding: 20px;
     margin-bottom: 20px;
-    border-left: 4px solid var(--primary);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 
-.q-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.q-number { background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-
-label { font-weight: 700; font-size: 14px; color: var(--text-main); }
-
-select, input, textarea {
-    width: 100%;
-    background: #f1f5f9;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    padding: 12px;
+label {
+    display: block;
+    font-weight: 700;
     font-size: 14px;
-    margin-bottom: 10px;
-    transition: 0.2s;
+    margin-bottom: 12px;
+    color: var(--text-main);
 }
 
-textarea { min-height: 80px; resize: vertical; border: 1px dashed #cbd5e1; }
-select:focus, textarea:focus { border-color: var(--primary); outline: none; background: white; }
+select, input[type="text"], textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 14px;
+    background: white;
+    outline: none;
+}
 
-/* Стилізація кнопок */
-#generate_btn {
+select:focus, input:focus, textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+textarea.q-evidence {
+    margin-top: 12px;
+    min-height: 90px;
+    font-style: italic;
+    border-style: dashed;
+}
+
+/* 6. Права колонка (Звіт) */
+.text-copy {
+    flex: 1;
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 20px;
+    border-radius: 16px;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin-bottom: 15px;
+    border: 1px solid #334155;
+}
+
+/* 7. Кнопки (Однакові для всіх) */
+button, .copy {
+    width: 100%;
+    padding: 18px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
-.text-copy {
-    font-family: 'Courier New', monospace;
-    background: #1e293b;
-    color: #e2e8f0;
-    border: none;
-    border-radius: 16px;
-    padding: 20px;
-    font-size: 13px;
+button:hover, .copy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+    filter: brightness(1.1);
 }
 
-/* Скроллбар */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+button:active, .copy:active {
+    transform: translateY(0);
+}
+
+/* 8. Оверлей вибору курсу */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-body);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.course-card {
+    background: white;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.course-card:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: #eef2ff;
+    color: var(--primary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Кастомний скроллбар */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
 
